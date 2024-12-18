@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+*{
+    padding: 0;
+    margin: 0; 
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main{
+    height: 200px; width: 200px;
+    border: 3px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+}
+.digit{
+    position: absolute;
+    transform: rotate(calc(var(--i)*30deg));
+    inset: 5px;
+    text-align: center;
+}
+.digit b{
+    display: inline-block;
+    transform: rotate(calc(var(--i)*-30deg));
+}
+.hands{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.hands i{
+    border: 2px solid black;
+    height: calc(var(--h));
+    width: 6px;
+    background-color: red;
+    position: absolute;
+}
+.main::before{
+    content: "";
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: black;
+}
+
+</style>
+
+<body>
+    <div class="main">
+        <div class="hands" id="hour"><i style="--h:45px" ></i></div>
+        <div class="hands" id="minute"><i style="--h:60px" ></i></div>
+        <div class="hands" id="sec"><i style="--h:75px" ></i></div>
+        <div class="digit" style="--i:1"><b>1</b></div>
+        <div class="digit" style="--i:2"><b>2</b></div>
+        <div class="digit" style="--i:3"><b>3</b></div>
+        <div class="digit" style="--i:4"><b>4</b></div>
+        <div class="digit" style="--i:5"><b>5</b></div>
+        <div class="digit" style="--i:6"><b>6</b></div>
+        <div class="digit" style="--i:7"><b>7</b></div>
+        <div class="digit" style="--i:8"><b>8</b></div>
+        <div class="digit" style="--i:9"><b>9</b></div>
+        <div class="digit" style="--i:10"><b>10</b></div>
+        <div class="digit" style="--i:11"><b>11</b></div>
+        <div class="digit" style="--i:12"><b>12</b></div>
+    </div>
+
+
+<script>
+    const hour = document.querySelector("#hour");
+    const minute = document.querySelector("#minute");
+    const sec = document.querySelector("#sec");
+    let h, m, s;
+    function setTime(){
+        let dt = new Date();
+        h = dt.getHours();
+        m = dt.getMinutes();
+        s = dt.getSeconds();
+    }
+    function setHands(){
+        if(h>12){
+            h = h-12;
+        }
+        let hRotation = h*30 + m*0.5;
+        let mRotation = 6*m;
+        let sRotation = 6*s;
+
+        hour.style.transform = `rotate(${hRotation}deg)`
+        minute.style.transform = `rotate(${mRotation}deg)`
+        sec.style.transform = `rotate(${sRotation}deg)`
+    }
+    setInterval(() => {
+        setTime();
+        setHands();
+    }, 1000)
+    
+</script>
+</body>
+</html>
